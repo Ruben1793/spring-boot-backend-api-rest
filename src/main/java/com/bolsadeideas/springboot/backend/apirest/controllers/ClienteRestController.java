@@ -74,9 +74,7 @@ public class ClienteRestController {
             response.put("error", e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        response.put("mensaje", "El cliente ha sido creado con exito!");
-        response.put("cliente", clienteNew);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(clienteNew, HttpStatus.CREATED);
     }
 
     @PutMapping("/clientes/{id}")
@@ -101,14 +99,12 @@ public class ClienteRestController {
         clienteActual.setEmail(cliente.getEmail());
         try{
             clienteUpdated = clienteService.save(clienteActual);
-            response.put("mensaje", "El cliente ha sido actualizado con exito!");
-            response.put("cliente", clienteUpdated);
         } catch(DataAccessException e){
             response.put("mensaje", "Error al actualizar el cliente en la base de datos!");
             response.put("error", e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(clienteUpdated, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/clientes/{id}")
